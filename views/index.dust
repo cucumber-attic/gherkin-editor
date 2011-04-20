@@ -1,0 +1,11 @@
+{>"layouts/main"/}
+
+{<title}Foo {title}{/title}
+
+
+{<html_body}
+    <p>This is my index.dust main body {title}</p>
+{/html_body}
+
+{<copy}{copy|s}{/copy}
+

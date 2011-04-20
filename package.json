@@ -1,0 +1,30 @@
+{ "name" : "gherkin-editor"
+, "description" : "A web based Gherkin editor based on the Ace editor."
+, "keywords" : [ "testing", "bdd", "cucumber", "gherkin", "tests" ]
+, "version" : "0.0.1"
+, "homepage" : "http://github.com/aslakhellesoy/gherkin-editor"
+, "author" : "Aslak Hellesøy <aslak.hellesoy@gmail.com>"
+, "contributors" : [ "Aslak Hellesøy <aslak.hellesoy@gmail.com>" ]
+, "repository" :
+  { "type" : "git"
+  , "url" : "git://github.com/aslakhellesoy/gherkin-editor.git"
+  }
+, "bugs" :
+  { "mail" : "cukes@googlegroups.com"
+  , "web" : "http://github.com/aslakhellesoy/gherkin-editor/issues"
+  }
+, "directories" : { "lib" : "./lib" }
+, "main" : "./lib/gherkin"
+, "engines" : { "node" : "0.4 || 0.5" }
+, "dependencies" : 
+  { "gherkin" : "2.3.6"
+  , "express" : "2.2.2"
+  , "express-dust" : "0.1.1"
+  , "dust" : "0.3.0"
+  }
+, "licenses" :
+  [ { "type" : "MIT"
+    , "url" : "http://github.com/isaacs/npm/raw/master/LICENSE"
+    }
+  ]
+}

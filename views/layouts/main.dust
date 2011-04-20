@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{+title}My Site{/title}</title>
+</head>
+<body>
+{>"partials/nav"/}
+
+{+html_body}
+{/html_body}
+<div id="footer">{+copy}Copyright{/copy}</footer>
+</body>
+</html>
