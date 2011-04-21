@@ -5,11 +5,10 @@ Planned features include:
 
 * [Code completion](https://github.com/aslakhellesoy/gherkin/wiki/Code-Completion)
 * Syntax highlighting (partly implemented in a [fork of ace](https://github.com/cucumber/ace))
-* Syntax checking based on Gherkin.js. More info about cucumber.js in [this thread](http://groups.google.com/group/cukes/browse_thread/thread/5a883a548c424398/95abc53b00683480)
-* Integration with external storages, using [WebDav](https://github.com/mikedeboer/jsdav) or REST towards a dedicated server
+* Syntax checking based on Gherkin.js. More info about that in [this thread](http://groups.google.com/group/cukes/browse_thread/thread/5a883a548c424398/95abc53b00683480)
+* Integration with external file systems, using [WebDav](https://github.com/mikedeboer/jsdav) or REST towards a dedicated git-enabled server.
 
-The discussion about this editor started [here](http://groups.google.com/group/cukes/browse_thread/thread/90627ad8d4aafb93/d5b40a21cb5cc258)
-The target audience is primarily non-programmers. The kind of people we want to write Cucumber features, but never had a tool to do it.
+The target audience is primarily non-programmers. The kind of people who want to write Cucumber features, but never had a tool to do it and gave up.
 
 # What it looks like so far
 
@@ -39,11 +38,21 @@ This branch contains the changes on the other branches so that all our fixes can
 
 Now go to http://localhost:8000
 
+# Web Framework
+
+The webapp is using [Express](http://expressjs.com/) and [Dust](http://akdubya.github.com/dustjs/). The demo page doesn't use Dust, but as the app gets a little more fancy we'll need some templating. I'm not a huge fan of Jade/Haml style template languages.
+
+# Tests
+
+There are none yet, it's too experimental at this stage. They will come later.
+
 # Want to help?
 
 Join the [Cucumber Mailing list](http://groups.google.com/group/cukes) and discuss!
 
 # Hacking on Ace
+
+Only edit files under `lib` - not under `build` - they are generated. To regenerate after hacking: 
 
     cd vendor/ace
     git submodule update --init --recursive
