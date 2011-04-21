@@ -13,7 +13,7 @@ The target audience is primarily non-programmers. The kind of people we want to 
 
 # What it looks like so far
 
-
+![Syntax error](https://github.com/cucumber/gherkin-editor/raw/master/public/images/screenshots/syntax_error.png "The editor has detected a syntax error")
 
 # Install and run
 
