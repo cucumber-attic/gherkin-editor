@@ -15,6 +15,22 @@ The target audience is primarily non-programmers. The kind of people we want to 
 
 ![Syntax error](https://github.com/cucumber/gherkin-editor/raw/master/public/images/screenshots/syntax_error.png "The editor has detected a syntax error")
 
+# Ace branches
+
+Achieving the goals listed above will require several changes to Ace. So far there are a few branches with different features on cucumber's ace fork. There may be more. And some may go away if the Ace project accepts them. Rejected Ace pull requests will likely move into this project so we don't have to depend on a forked ace long term.
+
+## gherkin-mode
+
+This is the syntax highlighting support for gherkin. Currently there is no i18n. We should generate the highlighter from a template using the technique described [here](https://github.com/aslakhellesoy/gherkin/wiki/Tool-Support). The Ace gherkin-mode is likely to move into this project instead of living in Ace.
+
+## ace-connect
+
+This is a small patch to make it easier to serve ace from node, as explained in [this pull request](https://github.com/ajaxorg/ace/pull/217)
+
+## gherkin-editor
+
+This branch contains the changes on the other branches so that all our fixes can be used in this project
+
 # Install and run
 
     npm link
@@ -22,6 +38,10 @@ The target audience is primarily non-programmers. The kind of people we want to 
     node server.js
 
 Now go to http://localhost:8000
+
+# Want to help?
+
+Join the [Cucumber Mailing list](http://groups.google.com/group/cukes) and discuss!
 
 # Hacking on Ace
 
