@@ -1,10 +1,17 @@
-#!/usr/bin/env node
+require.paths.unshift(__dirname + '/vendor/ace/build/src');
 
-var app = require('express').createServer();
+var express = require('express');
+var app = express.createServer();
 var dust = require('express-dust');
 
+app.configure(function() {
+  app.use(express.static(__dirname + '/public'));
+  app.use(require('ace-connect')('/js/ace'));
+  app.use(require('gherkin').connect('/js'));
+});
+
 dust.makeBase({
-  copy: '&copy; 2011 Nobody LLC'
+  copy: '&copy; 2011 Cucumber'
 });
 
 app.get('/', function(req, res, next) {
@@ -24,4 +31,4 @@ app.get('/partial_html', function(req, res, next) {
 });
 
 app.listen(8000);
-console.log('App listening at: http://localhost:8000/');
+console.log('Gherkin Editor listening at: http://localhost:8000/');

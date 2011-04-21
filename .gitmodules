@@ -1,0 +1,3 @@
+[submodule "vendor/ace"]
+	path = vendor/ace
+	url = git://github.com/cucumber/ace.git

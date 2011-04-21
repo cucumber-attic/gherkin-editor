@@ -21,7 +21,6 @@
   , "express" : "2.2.2"
   , "express-dust" : "0.1.1"
   , "dust" : "0.3.0"
-  , "ace" : "0.1.6"
   }
 , "licenses" :
   [ { "type" : "MIT"
