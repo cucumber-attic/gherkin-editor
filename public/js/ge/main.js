@@ -46,9 +46,14 @@ window.onload = function() {
 
   // Code completion
   editor.getSession().on('change', function(e) {
+    var row = e.data.range.end.row;
+    var column = e.data.range.end.column;
     var document = editor.getSession().getDocument();
-    var line = document.getLine(e.data.range.end.row);
-    console.log(line);
+    var line = document.getLine(row);
+    var domLine = jQuery('#editor .ace_text-layer .ace_line:nth-child(' + (row+1 )+ ')');
+    var position = domLine.position();
+    position.left += 300;
+    $('#autocomplete').show().offset(position);
     // See edit_session_test.js for conversion to screen coords.
     // session.getDocument() for inserting text after selection
   });
