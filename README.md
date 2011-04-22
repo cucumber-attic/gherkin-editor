@@ -1,7 +1,6 @@
 # Gherkin Editor
 
-This is a web based editor for [Gherkin](https://github.com/aslakhellesoy/gherkin) - the language Cucumber features are written in. It's based on [Ace](http://ace.ajax.org/) in the browser and [Node.js](http://nodejs.org/) on the server.
-Planned features include:
+This is a web based editor for [Gherkin](https://github.com/aslakhellesoy/gherkin) - the language Cucumber features are written in. It's based on [Ace](http://ace.ajax.org/) in the browser and [Node.js](http://nodejs.org/) on the server. It's in very early stages (not really useable yet), but the planned features include:
 
 * [Code completion](https://github.com/aslakhellesoy/gherkin/wiki/Code-Completion)
 * Syntax highlighting (partly implemented in a [fork of ace](https://github.com/cucumber/ace))
