@@ -43,4 +43,13 @@ window.onload = function() {
       jQuery('#editor .ace_text-layer .ace_line:nth-child(' + line + ')').toggleClass('syntax_error');
     }
   });
+
+  // Code completion
+  editor.getSession().on('change', function(e) {
+    var document = editor.getSession().getDocument();
+    var line = document.getLine(e.data.range.end.row);
+    console.log(line);
+    // See edit_session_test.js for conversion to screen coords.
+    // session.getDocument() for inserting text after selection
+  });
 };
