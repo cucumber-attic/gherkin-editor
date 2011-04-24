@@ -15,6 +15,15 @@ window.onload = function() {
     examples: function(keyword, name, description, line) {
     },
     step: function(keyword, name, line) {
+      var current_line = editor.getSelectionRange().start.row;
+      if(current_line == line - 1){
+        var cursorPosition = editor.renderer.$cursorLayer.getPixelPosition();
+        $("#autocomplete_input").offset(cursorPosition);
+        // we can put step being completed to autocomplete input field
+        //$("#autocomplete").attr("value",name);
+        $("#autocomplete_input").attr("value","r");
+        $("#autocomplete_input").autocomplete("search");
+      }
     },
     py_string: function(string, line) {
     },
@@ -44,13 +53,44 @@ window.onload = function() {
     }
   });
 
-  // Code completion
-  editor.getSession().on('change', function(e) {
-    var line = editor.getSession().getDocument().getLine(editor.getCursorPosition().row);
-    console.log(line);
-    var pos = editor.renderer.$cursorLayer.pixelPos;
-    var gutterWidth = editor.renderer.$gutterLayer.element.clientWidth;
-    pos.left += gutterWidth;
-    $('#autocomplete').show().offset(pos);
+  // this is just a sample to demonstrate functionality
+  var availableTags = [
+    "ActionScript",
+    "AppleScript",
+    "Asp",
+    "BASIC",
+    "C",
+    "C++",
+    "Clojure",
+    "COBOL",
+    "ColdFusion",
+    "Erlang",
+    "Fortran",
+    "Groovy",
+    "Haskell",
+    "Java",
+    "JavaScript",
+    "Lisp",
+    "Perl",
+    "PHP",
+    "Python",
+    "Ruby",
+    "Scala",
+    "Scheme"
+  ];
+  $( "#autocomplete_input" ).autocomplete({
+    source: availableTags
   });
+  var AutocompleteHandler = require("gherkin-editor/autocomplete").AutocompleteHandler;
+  editor.setKeyboardHandler(new AutocompleteHandler($( "#autocomplete_input" )));
+
+  // Code completion
+  // editor.getSession().on('change', function(e) {
+  //   var line = editor.getSession().getDocument().getLine(editor.getCursorPosition().row);
+  //   console.log(line);
+  //   var pos = editor.renderer.$cursorLayer.pixelPos;
+  //   var gutterWidth = editor.renderer.$gutterLayer.element.clientWidth;
+  //   pos.left += gutterWidth;
+  //   $('#autocomplete').show().offset(pos);
+  // });
 };
