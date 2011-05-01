@@ -23,3 +23,7 @@ body {
   top: 300px;
   left: 200px;
 }
+
+.autocomplete-indent {
+  padding-left: 0.5em;
+}
