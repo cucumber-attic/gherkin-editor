@@ -5,15 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
     <title>Gherkin Editor</title> 
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/css/jquery-ui.css" type="text/css" media="screen" charset="utf-8" />
     <script src="/js/ace/ace.js"></script>
     <script src="/js/ace/mode-gherkin.js"></script>
     <script src="/js/ace/theme-twilight.js"></script>
     <script src="/js/jquery-1.5.2.min.js"></script>
+    <script src="/js/jquery.ui.core.js"></script>
+    <script src="/js/jquery.ui.position.js"></script>
+    <script src="/js/jquery.ui.widget.js"></script>
+    <script src="/js/jquery.ui.autocomplete.js"></script>
+    <script src="/js/jquery.ui.autocomplete.html.js"></script>
     <script src="/js/gherkin/lexer/en.js"></script>
     <script src="/js/ge/main.js"></script>
+    <script src="/js/ge/autocomplete/autocomplete.js"></script>
+    <script src="/js/ge/autocomplete/keybinding.js"></script>
   </head>
   <body>
-    <div id="autocomplete">AUTOCOMPLETE</div>
+    <input type="text" style="z-index: 0" name="autocomplete" id="autocomplete_input"/>
     <div id="editor"># This is just a demo of syntax highlighting
 # And very basic syntax checking (based on gherkin.js)
 # Try to introduce a syntax error (Replace When with a different
