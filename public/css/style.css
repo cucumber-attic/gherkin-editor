@@ -25,7 +25,5 @@ body {
 }
 
 .autocomplete-indent {
-  width: 0.5em;
-  display: inline-block;
-  float: left;
+  padding-left: 0.5em;
 }
