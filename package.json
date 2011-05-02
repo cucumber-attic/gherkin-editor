@@ -4,7 +4,10 @@
 , "version" : "0.0.1"
 , "homepage" : "http://github.com/aslakhellesoy/gherkin-editor"
 , "author" : "Aslak Hellesøy <aslak.hellesoy@gmail.com>"
-, "contributors" : [ "Aslak Hellesøy <aslak.hellesoy@gmail.com>" ]
+, "contributors" : [ 
+    "Aslak Hellesøy <aslak.hellesoy@gmail.com>"
+  , "Ivan Necas <necasik@gmail.com>"
+  ]
 , "repository" :
   { "type" : "git"
   , "url" : "git://github.com/aslakhellesoy/gherkin-editor.git"
@@ -17,10 +20,11 @@
 , "main" : "./lib/gherkin"
 , "engines" : { "node" : "0.4 || 0.5" }
 , "dependencies" : 
-  { "gherkin" : "2.3.6"
+  { "gherkin" : "2.3.7"
   , "express" : "2.2.2"
   , "express-dust" : "0.1.1"
   , "dust" : "0.3.0"
+  , "jasmine-node" : "1.0.4"
   }
 , "licenses" :
   [ { "type" : "MIT"

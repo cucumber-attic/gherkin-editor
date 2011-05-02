@@ -43,7 +43,7 @@ The webapp is using [Express](http://expressjs.com/) and [Dust](http://akdubya.g
 
 # Tests
 
-There are none yet, it's too experimental at this stage. They will come later.
+    node_modules/.bin/jasmine-node spec
 
 # Want to help?
 
@@ -61,7 +61,6 @@ Make a feature branch for everything you do
 
 # TODO
 
-* Document how to run tests. Add jasmine to package.json?
 * Gherkin-editor users won't understand regexp anchors. Display a '*', '?' or '-' instead.
 * CTRL-SPACE should trigger autocomplete
 * Do not reposition popup once displayed (keep in one place while typing)
