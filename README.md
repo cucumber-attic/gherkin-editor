@@ -58,3 +58,13 @@ Only edit files under `lib` - not under `build` - they are generated. To regener
     ./Makefile.dryice.js
 
 Make a feature branch for everything you do
+
+# TODO
+
+* Document how to run tests. Add jasmine to package.json?
+* Regain focus when something is selected
+* Gherkin-editor users won't understand regexp anchors. Display a '*', '?' or '-' instead.
+* CTRL-SPACE should trigger autocomplete
+* Do not reposition popup once displayed (keep in one place while typing)
+* Move autocomplete widget to ace-autocomplete project once it matures? May improve quality long term (more contributors).
+* Fix 404 for jquery-ui png images. Ideally generate jquery-ui css files from current theme.
