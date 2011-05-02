@@ -67,3 +67,4 @@ Make a feature branch for everything you do
 * Do not reposition popup once displayed (keep in one place while typing)
 * Move autocomplete widget to ace-autocomplete project once it matures? May improve quality long term (more contributors).
 * Fix 404 for jquery-ui png images. Ideally generate jquery-ui css files from current theme.
+* Figure out how require-js works so we don't need to require so many files in our HTML.
