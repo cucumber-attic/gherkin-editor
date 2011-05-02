@@ -62,7 +62,6 @@ Make a feature branch for everything you do
 # TODO
 
 * Document how to run tests. Add jasmine to package.json?
-* Regain focus when something is selected
 * Gherkin-editor users won't understand regexp anchors. Display a '*', '?' or '-' instead.
 * CTRL-SPACE should trigger autocomplete
 * Do not reposition popup once displayed (keep in one place while typing)
