@@ -6,6 +6,7 @@ This is a web based editor for [Gherkin](https://github.com/aslakhellesoy/gherki
 * Syntax highlighting (partly implemented in a [fork of ace](https://github.com/cucumber/ace))
 * Syntax checking based on Gherkin.js. More info about that in [this thread](http://groups.google.com/group/cukes/browse_thread/thread/5a883a548c424398/95abc53b00683480)
 * Integration with external file systems, using [WebDav](https://github.com/mikedeboer/jsdav) or REST towards a dedicated git-enabled server.
+* Simple refactorings, like renaming a step and having all other related steps in the project be renamed too. Related steps would be found using stepdef regexps.
 
 The target audience is primarily non-programmers. The kind of people who want to write Cucumber features, but never had a tool to do it and gave up.
 
