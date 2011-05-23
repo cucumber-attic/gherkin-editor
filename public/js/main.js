@@ -1,18 +1,10 @@
-/*
-<script src="/js/ace/ace.js"></script>
-<script src="/js/ace/mode-gherkin.js"></script>
-<script src="/js/ace/theme-twilight.js"></script>
-<script src="/js/gherkin/lexer/en.js"></script>
-<script src="/js/ge/autocomplete/autocomplete.js"></script>
-<script src="/js/ge/autocomplete/keybinding.js"></script>
-<script src="/js/autocomplete-sample.js"></script>
-*/
-
 require([
   "jquery",
   "ace/ace",
+  "ace/mode-gherkin",
+  "ace/theme-twilight",
   "gherkin/lexer/en"
-  ], function($, ace, Lexer) {
+  ], function($, ace, x, y, Lexer) {
   require.ready(function() {
     $(function() {
       var editorElement = $('#editor');
