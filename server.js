@@ -5,6 +5,7 @@ var app = express.createServer();
 var dust = require('express-dust');
 
 app.configure(function() {
+  app.use(express.logger());
   app.use(express.static(__dirname + '/public'));
   app.use(require('ace-connect')('/js/ace'));
   app.use(require('./lib/connect').connect('/js/ge'));
