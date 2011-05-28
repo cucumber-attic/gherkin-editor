@@ -56,7 +56,7 @@ Only edit files under `lib` - not under `build` - they are generated. To regener
 
     cd vendor/ace
     git submodule update --init --recursive
-    ./Makefile.dryice.js
+    ./Makefile.dryice.js normal
 
 Make a feature branch for everything you do
 
