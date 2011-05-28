@@ -33,13 +33,14 @@ This branch contains the changes on the other branches so that all our fixes can
 
     npm link
     git submodule update --init --recursive
+    make
     node server.js
 
 Now go to http://localhost:8000
 
 # Web Framework
 
-The webapp is using [Express](http://expressjs.com/) and [Dust](http://akdubya.github.com/dustjs/). The demo page doesn't use Dust, but as the app gets a little more fancy we'll need some templating. I'm not a huge fan of Jade/Haml style template languages.
+The webapp is using [Express](http://expressjs.com/) and [Dust](http://akdubya.github.com/dustjs/). The demo page doesn't use Dust yet, but as the app gets a little more fancy we'll need some templating. I'm not a huge fan of Jade/Haml style template languages.
 
 # Tests
 

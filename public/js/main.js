@@ -4,7 +4,7 @@ require([
   "ace/mode-gherkin",
   "ace/theme-twilight",
   "gherkin/lexer/en"
-  ], function($, ace, x, y, Lexer) {
+  ], function($, ace, _gm_, _theme_, Lexer) {
   require.ready(function() {
     $(function() {
       var editorElement = $('#editor');
@@ -125,7 +125,10 @@ require([
         autoFocus: true
       });
 
-      editor.setKeyboardHandler(new AutocompleteHandler($( "#autocomplete_input" )));
+      require(["gherkin-editor/autocomplete"], function(autocomplete) {
+        console.log(autocomplete);
+      });
+      //editor.setKeyboardHandler(new AutocompleteHandler($( "#autocomplete_input" )));
 
       // editor.getSession().on('change', function(e) {
       //   var line = editor.getSession().getDocument().getLine(editor.getCursorPosition().row);
