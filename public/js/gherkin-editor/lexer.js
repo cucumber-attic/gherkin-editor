@@ -1,5 +1,5 @@
 define(['gherkin/lexer/en'], function(Lexer) {
-  var lexer = new Lexer({
+  var listener = {
     comment: function(value, line) {
     },
     tag: function(value, line) {
@@ -10,11 +10,11 @@ define(['gherkin/lexer/en'], function(Lexer) {
     },
     scenario: function(keyword, name, description, line) {
     },
+    step: function(keyword, name, line) {
+    },
     scenario_outline: function(keyword, name, description, line) {
     },
     examples: function(keyword, name, description, line) {
-    },
-    step: function(keyword, name, line) {
     },
     py_string: function(string, line) {
     },
@@ -22,15 +22,17 @@ define(['gherkin/lexer/en'], function(Lexer) {
     },
     eof: function() {
     }
-  });
+  };
+  var lexer = new Lexer(listener);
 
-  return function(source, callback) {
+  return function(source, stepFunction) {
     try {
+      // Reassign the step function
+      listener.step = stepFunction;
       lexer.scan(source);
-      callback(null);
     } catch(exception) {
       var line = exception.match(/Lexing error on line (\d+):/)[1];
-      callback(line);
+      stepFunction(null, null, line, true);
     }
   }
 });
