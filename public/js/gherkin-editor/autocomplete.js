@@ -51,7 +51,13 @@ define(function() {
     }
 
     function replace() {
-      deactivate();
+      var Range = require('ace/range').Range;
+      var range = new Range(self.row, self.column, self.row, self.column + 1000);
+      editor.session.replace(range, current().innerText);
+      // Deactivate asynchrounously, so that in case of ENTER - we don't reactivate immediately.
+      setTimeout(function() {
+        deactivate();
+      }, 0);
     }
 
     function deactivate() {
@@ -69,7 +75,6 @@ define(function() {
     // Shows the list and reassigns up/down keys
     this.activate = function(afterText) {
       if(this.active) return;
-      self.active = true;
 
       // Find the column by searching for afterText on current line
       var range = editor.getSelectionRange();
@@ -78,37 +83,40 @@ define(function() {
       var Search = require("ace/search").Search;
       editor.$search.set({needle: afterText, scope: Search.SELECTION});
       var foundRange = editor.$search.find(editor.session);
-      var column = foundRange.end.column;
-      editor.selection.clearSelection();
-      
-      // Position the list
-      var row = range.start.row;
-      var coords = editor.renderer.textToScreenCoordinates(row, column);
-      element.style.top = coords.pageY + 'px';
-      element.style.left = coords.pageX + 'px';      
-      element.style.display = 'block';
+      if(foundRange) {
+        this.column = foundRange.end.column;
+        editor.selection.clearSelection();
 
-      // Select the first one
-      focusFirst();
+        // Position the list
+        this.row = range.start.row;
+        var coords = editor.renderer.textToScreenCoordinates(this.row, this.column);
+        element.style.top = coords.pageY + 'px';
+        element.style.left = coords.pageX + 'px';      
+        element.style.display = 'block';
 
-      // Take over the keyboard
-      canon.getCommand('golinedown').exec = function(env, args, request) { focusNext(); };
-      canon.getCommand('golineup').exec   = function(env, args, request) { focusPrev(); };
-      canon.addCommand({
-        name: "hideautocomplete",
-        bindKey: {win: "Esc", mac: "Esc", sender: "editor"},
-        exec: function(env, args, request) {
-          deactivate();
-        }
-      });
+        // Select the first one
+        focusFirst();
 
-      editor.onTextInput = function(text) {
-        if(text == '\n') {
-          replace();
-        } else {
-          originalOnTextInput.call(editor, text);
-        }
-      };
+        // Take over the keyboard
+        canon.getCommand('golinedown').exec = function(env, args, request) { focusNext(); };
+        canon.getCommand('golineup').exec   = function(env, args, request) { focusPrev(); };
+        canon.addCommand({
+          name: "hideautocomplete",
+          bindKey: {win: "Esc", mac: "Esc", sender: "editor"},
+          exec: function(env, args, request) {
+            deactivate();
+          }
+        });
+
+        editor.onTextInput = function(text) {
+          if(text == '\n') {
+            replace();
+          } else {
+            originalOnTextInput.call(editor, text);
+          }
+        };
+        self.active = true;
+      }
     };
     
     // Sets the text the suggest should be based on.

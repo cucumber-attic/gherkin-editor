@@ -1,6 +1,10 @@
 (function($){
-  $.fn.gherkinEditor = function(editorCallback) {
+  $.fn.gherkinEditor = function(options) {
     var jq = this;
+
+    var editorCallback = options.callback;
+    var stepdefs = options.stepdefs;
+
     require(['ace/ace', 'ace/mode-gherkin', 'gherkin-editor/lexer', 'gherkin-editor/autocomplete'], function(ace, mg, lexer, Autocomplete) {
       jq.each(function(i, element) {
         // Set up the editor
@@ -27,14 +31,14 @@
               $('#editor .ace_text-layer .ace_line:nth-child(' + line + ')').toggleClass('syntax_error');
             } else {
               // Successful lexing. Check if line is current editor line and activate the autocomplete if it is.
-              var currentLine = editor.getSelectionRange().start.row + 1;
-              if(line == currentLine) {
-                // We have to queue the display at the end of the loop to wait for position to be updated.
-                setTimeout(function() {
+              // We have to queue the display at the end of the loop to wait for position to be updated.
+              setTimeout(function() {
+                var currentLine = editor.getSelectionRange().start.row + 1;
+                if(line == currentLine) {
                   auto.activate(keyword);
                   auto.suggest(name);
-                }, 0);
-              }
+                }
+              }, 0);
             }
           });
         });
