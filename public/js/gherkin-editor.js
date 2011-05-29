@@ -21,7 +21,7 @@
           lexer(source, function(keyword, name, line, err) {
             if(err) {
               // Make line red
-              jQuery('#editor .ace_text-layer .ace_line:nth-child(' + line + ')').toggleClass('syntax_error');
+              $('#editor .ace_text-layer .ace_line:nth-child(' + line + ')').toggleClass('syntax_error');
             } else {
               // Successful lexing. Check if line is current editor line and activate the autocomplete if it is.
               var currentLine = editor.getSelectionRange().start.row + 1;
