@@ -2,13 +2,15 @@
 // Look at default_commands.js for hints on how to take over keys to navigate selection popup while showing...
 // Show up automatically for undefined steps
 // renderer.textToScreenCoordinates
-define(["pilot/canon"], function(canon) {
+define(function() {
+  var canon = require("pilot/canon");
   var golinedown = canon.getCommand('golinedown').exec;
   var golineup = canon.getCommand('golineup').exec;
 
   return function(editor) {
     var self = this;
-
+    var originalOnTextInput = editor.onTextInput;
+    
     // Create the suggest list
     var element = document.createElement('ul');
     element.className = 'ace_autocomplete';
@@ -17,22 +19,49 @@ define(["pilot/canon"], function(canon) {
     element.style.padding = '2px';
     element.style.position = 'absolute';
     element.style.zIndex = '1000';
-    element.innerHTML = "<li>One</li><li>Two</li><li>Three</li><li>Four</li><li>Five</li>";
+    element.innerHTML = '<li>I make a syntax error</li><li>Two</li><li>Three</li><li>Four</li><li>Five</li>';
     editor.container.appendChild(element);
-    
-    function focusNext(env, args, request) {
-      console.log('next');
+
+    function current() {
+      var children = element.childNodes;
+      for (var i = 0; i < children.length; i++) {
+        var li = children[i];
+        if(li.className == 'ace_autocomplete_selected') {
+          return li;
+        }
+      };
     }
-    function focusPrev(env, args, request) {
-      console.log('prev');
+
+    function focusNext() {
+      var curr = current();
+      curr.className = '';
+      var focus = curr.nextSibling || curr.parentNode.firstChild;
+      focus.className = 'ace_autocomplete_selected';
     }
-    function hide() {
+
+    function focusPrev() {
+      var curr = current();
+      curr.className = '';
+      var focus = curr.previousSibling || curr.parentNode.lastChild;
+      focus.className = 'ace_autocomplete_selected';
+    }
+
+    function focusFirst() {
+      element.firstChild.className = 'ace_autocomplete_selected';
+    }
+
+    function replace() {
+      deactivate();
+    }
+
+    function deactivate() {
       // Hide list
       element.style.display = 'none';
       
       // Restore keyboard
       canon.getCommand('golinedown').exec = golinedown;
       canon.getCommand('golineup').exec = golineup;
+      editor.onTextInput = originalOnTextInput;
 
       self.active = false;
     }
@@ -59,16 +88,27 @@ define(["pilot/canon"], function(canon) {
       element.style.left = coords.pageX + 'px';      
       element.style.display = 'block';
 
+      // Select the first one
+      focusFirst();
+
       // Take over the keyboard
-      canon.getCommand('golinedown').exec = focusNext;
-      canon.getCommand('golineup').exec   = focusPrev;
+      canon.getCommand('golinedown').exec = function(env, args, request) { focusNext(); };
+      canon.getCommand('golineup').exec   = function(env, args, request) { focusPrev(); };
       canon.addCommand({
         name: "hideautocomplete",
         bindKey: {win: "Esc", mac: "Esc", sender: "editor"},
         exec: function(env, args, request) {
-          hide();
+          deactivate();
         }
       });
+
+      editor.onTextInput = function(text) {
+        if(text == '\n') {
+          replace();
+        } else {
+          originalOnTextInput.call(editor, text);
+        }
+      };
     };
     
     // Sets the text the suggest should be based on.
