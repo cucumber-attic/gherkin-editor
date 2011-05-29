@@ -73,50 +73,39 @@ define(function() {
     }
     
     // Shows the list and reassigns up/down keys
-    this.activate = function(afterText) {
+    this.activate = function(row, column) {
       if(this.active) return;
+      this.active = true;
+      this.row = row;
+      this.column = column;
 
-      // Find the column by searching for afterText on current line
-      var range = editor.getSelectionRange();
-      range.start.column = 0;
-      editor.selection.setSelectionRange(range);
-      var Search = require("ace/search").Search;
-      editor.$search.set({needle: afterText, scope: Search.SELECTION});
-      var foundRange = editor.$search.find(editor.session);
-      if(foundRange) {
-        this.column = foundRange.end.column;
-        editor.selection.clearSelection();
+      // Position the list
+      var coords = editor.renderer.textToScreenCoordinates(row, column);
+      element.style.top = coords.pageY + 'px';
+      element.style.left = coords.pageX + 'px';      
+      element.style.display = 'block';
 
-        // Position the list
-        this.row = range.start.row;
-        var coords = editor.renderer.textToScreenCoordinates(this.row, this.column);
-        element.style.top = coords.pageY + 'px';
-        element.style.left = coords.pageX + 'px';      
-        element.style.display = 'block';
+      // Select the first one
+      focusFirst();
 
-        // Select the first one
-        focusFirst();
+      // Take over the keyboard
+      canon.getCommand('golinedown').exec = function(env, args, request) { focusNext(); };
+      canon.getCommand('golineup').exec   = function(env, args, request) { focusPrev(); };
+      canon.addCommand({
+        name: "hideautocomplete",
+        bindKey: {win: "Esc", mac: "Esc", sender: "editor"},
+        exec: function(env, args, request) {
+          deactivate();
+        }
+      });
 
-        // Take over the keyboard
-        canon.getCommand('golinedown').exec = function(env, args, request) { focusNext(); };
-        canon.getCommand('golineup').exec   = function(env, args, request) { focusPrev(); };
-        canon.addCommand({
-          name: "hideautocomplete",
-          bindKey: {win: "Esc", mac: "Esc", sender: "editor"},
-          exec: function(env, args, request) {
-            deactivate();
-          }
-        });
-
-        editor.onTextInput = function(text) {
-          if(text == '\n') {
-            replace();
-          } else {
-            originalOnTextInput.call(editor, text);
-          }
-        };
-        self.active = true;
-      }
+      editor.onTextInput = function(text) {
+        if(text == '\n') {
+          replace();
+        } else {
+          originalOnTextInput.call(editor, text);
+        }
+      };
     };
     
     // Sets the text the suggest should be based on.

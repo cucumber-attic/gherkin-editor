@@ -30,13 +30,23 @@
               // Make line red
               $('#editor .ace_text-layer .ace_line:nth-child(' + line + ')').toggleClass('syntax_error');
             } else {
-              // Successful lexing. Check if line is current editor line and activate the autocomplete if it is.
-              // We have to queue the display at the end of the loop to wait for position to be updated.
+              // Successful lexing. Check if step line is current editor line and activate the autocomplete if it is.
+              // to do this async to make sure position to be updated.
               setTimeout(function() {
-                var currentLine = editor.getSelectionRange().start.row + 1;
-                if(line == currentLine) {
-                  auto.activate(keyword);
-                  auto.suggest(name);
+                var range = editor.getSelectionRange();
+                if(line == range.start.row + 1) {
+                  // Find the column where we want the autocomplete to start
+                  range.start.column = 0;
+                  editor.selection.setSelectionRange(range);
+                  var Search = require("ace/search").Search;
+                  editor.$search.set({needle: keyword, scope: Search.SELECTION});
+                  var keywordRange = editor.$search.find(editor.session);
+                  editor.selection.clearSelection();
+                  if(keywordRange) {
+                    var keywordColumn = keywordRange.end.column;
+                    auto.activate(range.start.row, keywordColumn);
+                    auto.suggest(name);
+                  }
                 }
               }, 0);
             }
