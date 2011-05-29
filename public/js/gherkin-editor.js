@@ -1,7 +1,7 @@
 (function($){
   $.fn.gherkinEditor = function(editorCallback) {
     var jq = this;
-    require(['ace/ace', 'ace/mode-gherkin', 'gherkin-editor/lexer'], function(ace, mg, lexer) {
+    require(['ace/ace', 'ace/mode-gherkin', 'gherkin-editor/lexer', 'gherkin-editor/autocomplete'], function(ace, mg, lexer, Autocomplete) {
       jq.each(function(i, element) {
         // Set up the editor
         var editor = ace.edit(element);
@@ -9,6 +9,9 @@
         // Enable syntax highlighting
         var GherkinMode = require("ace/mode/gherkin").Mode;
         editor.getSession().setMode(new GherkinMode());
+
+        // Create autocomplete widget
+        var auto = new Autocomplete(editor);
 
         // Lex the document when the document changes
         editor.getSession().on('change', function(e) {
@@ -26,7 +29,11 @@
               // Successful lexing. Check if line is current editor line and activate the autocomplete if it is.
               var currentLine = editor.getSelectionRange().start.row + 1;
               if(line == currentLine) {
-                console.log("STEP", keyword, name, line);
+                // We have to queue the display at the end of the loop to wait for position to be updated.
+                setTimeout(function() {
+                  auto.activate(keyword);
+                  auto.suggest(name);
+                }, 0);
               }
             }
           });
