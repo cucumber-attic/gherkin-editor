@@ -2,7 +2,6 @@ require.paths.unshift(__dirname + '/vendor/ace/build/src');
 
 var express = require('express');
 var app = express.createServer();
-var dust = require('express-dust');
 
 app.configure(function() {
   app.use(express.logger());
@@ -10,10 +9,6 @@ app.configure(function() {
   app.use(require('ace-connect').connect('/js/ace'));
   app.use(require('./lib/connect').connect('/js/ge'));
   app.use(require('gherkin').connect('/js'));
-});
-
-dust.makeBase({
-  copy: '&copy; 2011 Cucumber'
 });
 
 app.get('/', function(req, res, next) {
