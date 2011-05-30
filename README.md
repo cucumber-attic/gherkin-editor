@@ -1,8 +1,8 @@
 # Gherkin Editor
 
-This is a web based editor for [Gherkin](https://github.com/aslakhellesoy/gherkin) - the language Cucumber features are written in. It's based on [Ace](http://ace.ajax.org/) in the browser and [Node.js](http://nodejs.org/) on the server. It currently supports:
+This is a web based editor for [Gherkin](https://github.com/cucumber/gherkin) - the language Cucumber features are written in. It's based on [Ace](http://ace.ajax.org/) in the browser and [Node.js](http://nodejs.org/) on the server. It currently supports:
 
-* [Code completion](https://github.com/aslakhellesoy/gherkin/wiki/Code-Completion)
+* [Code completion](https://github.com/cucumber/gherkin/wiki/Code-Completion)
 * Syntax highlighting (partly implemented in a [fork of ace](https://github.com/cucumber/ace))
 * Syntax checking based on Gherkin.js. More info about that in [this thread](http://groups.google.com/group/cukes/browse_thread/thread/5a883a548c424398/95abc53b00683480)
 
@@ -24,7 +24,7 @@ Achieving the goals listed above will require several changes to Ace. So far the
 
 ## gherkin-mode
 
-This is the syntax highlighting support for gherkin. Currently there is no i18n. We should generate the highlighter from a template using the technique described [here](https://github.com/aslakhellesoy/gherkin/wiki/Tool-Support). The Ace gherkin-mode is likely to move into this project instead of living in Ace.
+This is the syntax highlighting support for gherkin. Currently there is no i18n. We should generate the highlighter from a template using the technique described [here](https://github.com/cucumber/gherkin/wiki/Tool-Support). The Ace gherkin-mode is likely to move into this project instead of living in Ace.
 
 ## ace-connect
 
