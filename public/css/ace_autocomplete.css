@@ -1,0 +1,8 @@
+.ace_autocomplete {
+  color: #000000;
+  background: #FFFFFF;
+}
+
+.ace_autocomplete_selected {
+  background: #AAAAFF;
+}

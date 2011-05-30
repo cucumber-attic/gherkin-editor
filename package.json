@@ -20,7 +20,7 @@
 , "main" : "./lib/gherkin"
 , "engines" : { "node" : "0.4 || 0.5" }
 , "dependencies" : 
-  { "gherkin" : "2.3.7"
+  { "gherkin" : "2.3.9"
   , "connect" : "1.4.0"
   , "express" : "2.2.2"
   , "express-dust" : "0.1.1"
