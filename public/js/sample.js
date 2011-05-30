@@ -10,6 +10,10 @@ require(['jquery', 'gherkin-editor'], function($) {
   $('#editor').gherkinEditor({
     callback: callback,
     stepdefs: [
+      /I make a syntax error/,
+      /I have (\d+) cukes in my belly/,
+      /I have eaten all the cukes/,
+      /^stuff should be (.*)/
     ]
   });
 });

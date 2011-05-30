@@ -2,14 +2,26 @@
 // Look at default_commands.js for hints on how to take over keys to navigate selection popup while showing...
 // Show up automatically for undefined steps
 // renderer.textToScreenCoordinates
-define(function() {
-  var canon = require("pilot/canon");
+define(["pilot/canon"], function(canon) {
+//  var canon = require("pilot/canon");
   var golinedown = canon.getCommand('golinedown').exec;
   var golineup = canon.getCommand('golineup').exec;
 
-  return function(editor) {
+  return function(editor, matches) {
     var self = this;
     var originalOnTextInput = editor.onTextInput;
+    
+    // Load the regexp applet
+    // <applet name="PartialMatch" codebase="/applet" code="gherkin.editor.PartialMatch.class" width="0" height="0">
+    if(!document.applets('PartialMatch')) {
+      var applet = document.createElement('applet');
+      applet.name = 'PartialMatch';
+      applet.attributes['codebase'] = '/applet';
+      applet.code = 'gherkin.editor.PartialMatch.class';
+      applet.width = '0';
+      applet.height = '0';
+      document.body.appendChild(applet);
+    }
     
     // Create the suggest list
     var element = document.createElement('ul');
@@ -19,7 +31,6 @@ define(function() {
     element.style.padding = '2px';
     element.style.position = 'absolute';
     element.style.zIndex = '1000';
-    element.innerHTML = '<li>I make a syntax error</li><li>Two</li><li>Three</li><li>Four</li><li>Five</li>';
     editor.container.appendChild(element);
 
     function current() {
@@ -46,8 +57,10 @@ define(function() {
       focus.className = 'ace_autocomplete_selected';
     }
 
-    function focusFirst() {
-      element.firstChild.className = 'ace_autocomplete_selected';
+    function ensureFocus() {
+      if(!current()) {
+        element.firstChild.className = 'ace_autocomplete_selected';
+      }
     }
 
     function replace() {
@@ -85,9 +98,6 @@ define(function() {
       element.style.left = coords.pageX + 'px';      
       element.style.display = 'block';
 
-      // Select the first one
-      focusFirst();
-
       // Take over the keyboard
       canon.getCommand('golinedown').exec = function(env, args, request) { focusNext(); };
       canon.getCommand('golineup').exec   = function(env, args, request) { focusPrev(); };
@@ -110,8 +120,17 @@ define(function() {
     
     // Sets the text the suggest should be based on.
     // afterText indicates the position where the suggest box should start.
-    this.suggest = function(afterText, suggestText) {
-      // select current line
+    this.suggest = function(text) {
+      var options = matches(text);
+      if(options.length == 0) {
+        return deactivate();
+      }
+      var html = '';
+      for(var n in options) {
+        html += '<li>' + options[n] + '</li>';
+      }
+      element.innerHTML = html;
+      ensureFocus();
     }
   };
 });

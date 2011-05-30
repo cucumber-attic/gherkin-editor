@@ -14,8 +14,20 @@
         var GherkinMode = require("ace/mode/gherkin").Mode;
         editor.getSession().setMode(new GherkinMode());
 
+        // Use Java Applet for partial matches. Javascript RegExp don't know how to do that.
+        function matches(text) {
+          var result = [];
+          for(var n in stepdefs) {
+            var stepdef = stepdefs[n].source;
+            if(PartialMatch.isPartialMatch(stepdef, text)) {
+              result.push(stepdef);
+            }
+          }
+          return result;
+        }
+
         // Create autocomplete widget
-        var auto = new Autocomplete(editor);
+        var auto = new Autocomplete(editor, matches);
 
         // Lex the document when the document changes
         editor.getSession().on('change', function(e) {
