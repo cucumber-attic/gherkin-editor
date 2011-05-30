@@ -7,6 +7,7 @@
 
     require(['ace/ace', 'ace/mode-gherkin', 'gherkin-editor/lexer', 'gherkin-editor/autocomplete'], function(ace, mg, lexer, Autocomplete) {
       jq.each(function(i, element) {
+
         // Set up the editor
         var editor = ace.edit(element);
         
@@ -14,7 +15,17 @@
         var GherkinMode = require("ace/mode/gherkin").Mode;
         editor.getSession().setMode(new GherkinMode());
 
-        // Use Java Applet for partial matches. Javascript RegExp don't know how to do that.
+        // Use a simple Java Applet for partial matches. Javascript RegExp doesn't know how to do that unfortunately.
+        if(!document.applets('PartialMatch')) {
+          var applet = document.createElement('applet');
+          applet.name = 'PartialMatch';
+          applet.attributes['codebase'] = '/applet';
+          applet.code = 'gherkin.editor.PartialMatch.class';
+          applet.width = '0';
+          applet.height = '0';
+          document.body.appendChild(applet);
+        }
+
         function matches(text) {
           var result = [];
           for(var n in stepdefs) {

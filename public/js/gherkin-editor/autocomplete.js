@@ -6,18 +6,6 @@ define(["pilot/canon"], function(canon) {
     var self = this;
     var originalOnTextInput = editor.onTextInput;
     
-    // Load the regexp applet
-    // <applet name="PartialMatch" codebase="/applet" code="gherkin.editor.PartialMatch.class" width="0" height="0">
-    if(!document.applets('PartialMatch')) {
-      var applet = document.createElement('applet');
-      applet.name = 'PartialMatch';
-      applet.attributes['codebase'] = '/applet';
-      applet.code = 'gherkin.editor.PartialMatch.class';
-      applet.width = '0';
-      applet.height = '0';
-      document.body.appendChild(applet);
-    }
-    
     // Create the suggest list
     var element = document.createElement('ul');
     element.className = 'ace_autocomplete';
