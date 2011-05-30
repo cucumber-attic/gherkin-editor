@@ -1,9 +1,4 @@
-// TODO: Look at cursor.js - use same style?
-// Look at default_commands.js for hints on how to take over keys to navigate selection popup while showing...
-// Show up automatically for undefined steps
-// renderer.textToScreenCoordinates
 define(["pilot/canon"], function(canon) {
-//  var canon = require("pilot/canon");
   var golinedown = canon.getCommand('golinedown').exec;
   var golineup = canon.getCommand('golineup').exec;
 

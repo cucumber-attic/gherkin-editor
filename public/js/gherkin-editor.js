@@ -1,4 +1,4 @@
-(function($){
+(function($) {
   $.fn.gherkinEditor = function(options) {
     var jq = this;
 
