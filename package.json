@@ -23,8 +23,6 @@
   { "gherkin" : "2.3.9"
   , "connect" : "1.4.0"
   , "express" : "2.2.2"
-  , "express-dust" : "0.1.1"
-  , "dust" : "0.3.0"
   , "jasmine-node" : "1.0.4"
   }
 , "licenses" :

@@ -89,8 +89,8 @@ define(["pilot/canon"], function(canon) {
 
       // Position the list
       var coords = editor.renderer.textToScreenCoordinates(row, column);
-      element.style.top = coords.pageY + 'px';
-      element.style.left = coords.pageX + 'px';      
+      element.style.top = coords.pageY + 2 + 'px';
+      element.style.left = coords.pageX + -2 + 'px';      
       element.style.display = 'block';
 
       // Take over the keyboard

@@ -1,16 +1,20 @@
 # Gherkin Editor
 
-This is a web based editor for [Gherkin](https://github.com/aslakhellesoy/gherkin) - the language Cucumber features are written in. It's based on [Ace](http://ace.ajax.org/) in the browser and [Node.js](http://nodejs.org/) on the server. It's in very early stages (not really useable yet), but the planned features include:
+This is a web based editor for [Gherkin](https://github.com/aslakhellesoy/gherkin) - the language Cucumber features are written in. It's based on [Ace](http://ace.ajax.org/) in the browser and [Node.js](http://nodejs.org/) on the server. It currently supports:
 
 * [Code completion](https://github.com/aslakhellesoy/gherkin/wiki/Code-Completion)
 * Syntax highlighting (partly implemented in a [fork of ace](https://github.com/cucumber/ace))
 * Syntax checking based on Gherkin.js. More info about that in [this thread](http://groups.google.com/group/cukes/browse_thread/thread/5a883a548c424398/95abc53b00683480)
-* Integration with external file systems, using [WebDav](https://github.com/mikedeboer/jsdav) or REST towards a dedicated git-enabled server.
+
+Planned features
 * Simple refactorings, like renaming a step and having all other related steps in the project be renamed too. Related steps would be found using stepdef regexps.
 
-The target audience is primarily non-programmers. The kind of people who want to write Cucumber features, but never had a tool to do it and gave up.
+Features that would be nice, but shouldn't go into this project
+* Integration with external file systems, using [WebDav](https://github.com/mikedeboer/jsdav) or REST towards a dedicated git-enabled server.
 
 # What it looks like so far
+
+![Syntax error](https://github.com/cucumber/gherkin-editor/raw/master/public/images/screenshots/autocomplete.png "The editor is suggesting steps")
 
 ![Syntax error](https://github.com/cucumber/gherkin-editor/raw/master/public/images/screenshots/syntax_error.png "The editor has detected a syntax error")
 
@@ -39,11 +43,8 @@ This branch contains the changes on the other branches so that all our fixes can
 
 Now go to http://localhost:8000
 
-# Web Framework
-
-The webapp is using [Express](http://expressjs.com/) and [Dust](http://akdubya.github.com/dustjs/). The demo page doesn't use Dust yet, but as the app gets a little more fancy we'll need some templating. I'm not a huge fan of Jade/Haml style template languages.
-
 # Tests
+(These are currently broken after a major rewrite of the autocomplete widget)
 
     node_modules/.bin/jasmine-node spec
 
