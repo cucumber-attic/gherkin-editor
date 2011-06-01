@@ -12,7 +12,7 @@ define(["pilot/canon","ace/ace"], function(canon) {
     element.style.display = 'none';
     element.style.listStyleType = 'none';
     element.style.padding = '2px';
-    element.style.position = 'absolute';
+    element.style.position = 'fixed';
     element.style.zIndex = '1000';
     editor.container.appendChild(element);
 
@@ -87,7 +87,7 @@ define(["pilot/canon","ace/ace"], function(canon) {
       // Position the list
       var coords = editor.renderer.textToScreenCoordinates(row, column);
       element.style.top = coords.pageY + 2 + 'px';
-      element.style.left = coords.pageX + -2 + 'px';      
+      element.style.left = coords.pageX + -2 + 'px';
       element.style.display = 'block';
 
       // Take over the keyboard
