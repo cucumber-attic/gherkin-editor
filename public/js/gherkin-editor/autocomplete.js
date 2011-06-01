@@ -49,7 +49,16 @@ define(["pilot/canon","ace/ace"], function(canon) {
     function replace() {
       var Range = require('ace/range').Range;
       var range = new Range(self.row, self.column, self.row, self.column + 1000);
-      editor.session.replace(range, current().innerText);
+      // Firefox does not support innerText property, don't know about IE
+      // http://blog.coderlab.us/2005/09/22/using-the-innertext-property-with-firefox/
+      var selectedValue;
+      if(document.all){
+        selectedValue = current().innerText;
+      } else{
+        selectedValue = current().textContent;
+      }
+
+      editor.session.replace(range, selectedValue);
       // Deactivate asynchrounously, so that in case of ENTER - we don't reactivate immediately.
       setTimeout(function() {
         deactivate();
