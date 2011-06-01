@@ -28,10 +28,16 @@
 
         function matches(text) {
           var result = [];
-          for(var n in stepdefs) {
-            var stepdef = stepdefs[n].source;
+          for(var stepdef in stepdefs) {
             if(PartialMatch.isPartialMatch(stepdef, text)) {
               result.push(stepdef);
+            }
+            var examples = stepdefs[stepdef];
+            for(var n in examples) {
+              var example = examples[n];
+              if(example.indexOf(text) != -1){
+                result.push(example);
+              }
             }
           }
           return result;
