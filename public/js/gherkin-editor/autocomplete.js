@@ -1,4 +1,4 @@
-define(["pilot/canon"], function(canon) {
+define(["pilot/canon","ace/ace"], function(canon) {
   var golinedown = canon.getCommand('golinedown').exec;
   var golineup = canon.getCommand('golineup').exec;
 
