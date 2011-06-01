@@ -16,14 +16,14 @@
         editor.getSession().setMode(new GherkinMode());
 
         // Use a simple Java Applet for partial matches. Javascript RegExp doesn't know how to do that unfortunately.
-        if(!document.applets('PartialMatch')) {
-          var applet = document.createElement('applet');
-          applet.name = 'PartialMatch';
-          applet.attributes['codebase'] = '/applet';
-          applet.code = 'gherkin.editor.PartialMatch.class';
-          applet.width = '0';
-          applet.height = '0';
-          document.body.appendChild(applet);
+        if(!$('applet[name="PartialMatch"]')[0]) {
+          var PartialMatch = document.createElement('applet');
+          PartialMatch.name = 'PartialMatch';
+          PartialMatch.attributes['codebase'] = '/applet';
+          PartialMatch.code = 'gherkin.editor.PartialMatch.class';
+          PartialMatch.width = '0';
+          PartialMatch.height = '0';
+          document.body.appendChild(PartialMatch);
         }
 
         function matches(text) {
