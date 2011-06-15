@@ -1,4 +1,4 @@
-define(["pilot/canon"], function(canon) {
+define(["pilot/canon","ace/ace"], function(canon) {
   var golinedown = canon.getCommand('golinedown').exec;
   var golineup = canon.getCommand('golineup').exec;
 
@@ -12,7 +12,7 @@ define(["pilot/canon"], function(canon) {
     element.style.display = 'none';
     element.style.listStyleType = 'none';
     element.style.padding = '2px';
-    element.style.position = 'absolute';
+    element.style.position = 'fixed';
     element.style.zIndex = '1000';
     editor.container.appendChild(element);
 
@@ -49,7 +49,16 @@ define(["pilot/canon"], function(canon) {
     function replace() {
       var Range = require('ace/range').Range;
       var range = new Range(self.row, self.column, self.row, self.column + 1000);
-      editor.session.replace(range, current().innerText);
+      // Firefox does not support innerText property, don't know about IE
+      // http://blog.coderlab.us/2005/09/22/using-the-innertext-property-with-firefox/
+      var selectedValue;
+      if(document.all){
+        selectedValue = current().innerText;
+      } else{
+        selectedValue = current().textContent;
+      }
+
+      editor.session.replace(range, selectedValue);
       // Deactivate asynchrounously, so that in case of ENTER - we don't reactivate immediately.
       setTimeout(function() {
         deactivate();
@@ -78,7 +87,7 @@ define(["pilot/canon"], function(canon) {
       // Position the list
       var coords = editor.renderer.textToScreenCoordinates(row, column);
       element.style.top = coords.pageY + 2 + 'px';
-      element.style.left = coords.pageX + -2 + 'px';      
+      element.style.left = coords.pageX + -2 + 'px';
       element.style.display = 'block';
 
       // Take over the keyboard

@@ -68,3 +68,5 @@ Make a feature branch for everything you do
 * Move autocomplete widget to ace-autocomplete project once it matures? May improve quality long term (more contributors).
 * Fix 404 for jquery-ui png images. Ideally generate jquery-ui css files from current theme.
 * Figure out how require-js works so we don't need to require so many files in our HTML.
+* Separate displaying of autocompleted text from its content - we may
+  want to indent (or use other visual style for) step examples to separate them from step definitions
