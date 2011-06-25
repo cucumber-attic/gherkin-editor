@@ -33,7 +33,7 @@
         }
 
         function humanizeRegexp(regexpStr) {
-          var humanizedRegexp = regexpStr.replace(/\(.*\)/g, wildcardsChar);
+          var humanizedRegexp = regexpStr.replace(/\(.*?\)/g, wildcardsChar);
           var humanizedRegexp = humanizedRegexp.replace(/[\^\$]|\\\w/g, "");
           return humanizedRegexp;
         }
