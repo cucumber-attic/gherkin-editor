@@ -2,17 +2,15 @@
   $.fn.gherkinEditor = function(options) {
     var jq = this;
     options = $.extend({
+      callback: function () { },
+      stepdefs:  {},
       humanize: true,
       wildcardsChar: "*"
     },options);
 
-    var editorCallback = options.callback;
-    var stepdefs = options.stepdefs;
-    var humanize = options.humanize;
-    var wildcardsChar = options.wildcardsChar;
-
     require(['ace/ace', 'ace/mode-gherkin', 'gherkin-editor/lexer', 'gherkin-editor/autocomplete'], function(ace, mg, lexer, Autocomplete) {
       jq.each(function(i, element) {
+        element.geOptions = options;
 
         // Set up the editor
         var editor = ace.edit(element);
@@ -33,22 +31,22 @@
         }
 
         function humanizeRegexp(regexpStr) {
-          var humanizedRegexp = regexpStr.replace(/\(.*?\)/g, wildcardsChar);
+          var humanizedRegexp = regexpStr.replace(/\(.*?\)/g, options.wildcardsChar);
           var humanizedRegexp = humanizedRegexp.replace(/[\^\$]|\\\w/g, "");
           return humanizedRegexp;
         }
 
         function matches(text) {
           var result = [];
-          for(var stepdef in stepdefs) {
+          for(var stepdef in options.stepdefs) {
             if(PartialMatch.isPartialMatch(stepdef, text)) {
-              if(humanize) {
+              if(options.humanize) {
                 result.push(humanizeRegexp(stepdef));
               } else {
                 result.push(stepdef);
               }
             }
-            var examples = stepdefs[stepdef];
+            var examples = options.stepdefs[stepdef];
             for(var n in examples) {
               var example = examples[n];
               if(example.indexOf(text) != -1){
@@ -98,7 +96,7 @@
           });
         });
 
-        editorCallback(editor);
+        options.callback(editor);
       });
     });
     return this;
