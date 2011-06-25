@@ -1,9 +1,15 @@
 (function($) {
   $.fn.gherkinEditor = function(options) {
     var jq = this;
+    options = $.extend({
+      humanize: true,
+      wildcardsChar: "*"
+    },options);
 
     var editorCallback = options.callback;
     var stepdefs = options.stepdefs;
+    var humanize = options.humanize;
+    var wildcardsChar = options.wildcardsChar;
 
     require(['ace/ace', 'ace/mode-gherkin', 'gherkin-editor/lexer', 'gherkin-editor/autocomplete'], function(ace, mg, lexer, Autocomplete) {
       jq.each(function(i, element) {
@@ -26,11 +32,21 @@
           document.body.appendChild(PartialMatch);
         }
 
+        function humanizeRegexp(regexpStr) {
+          var humanizedRegexp = regexpStr.replace(/\(.*\)/g, wildcardsChar);
+          var humanizedRegexp = humanizedRegexp.replace(/[\^\$]|\\\w/g, "");
+          return humanizedRegexp;
+        }
+
         function matches(text) {
           var result = [];
           for(var stepdef in stepdefs) {
             if(PartialMatch.isPartialMatch(stepdef, text)) {
-              result.push(stepdef);
+              if(humanize) {
+                result.push(humanizeRegexp(stepdef));
+              } else {
+                result.push(stepdef);
+              }
             }
             var examples = stepdefs[stepdef];
             for(var n in examples) {
