@@ -19,7 +19,7 @@
         if(!$('applet[name="PartialMatch"]')[0]) {
           var PartialMatch = document.createElement('applet');
           PartialMatch.name = 'PartialMatch';
-          PartialMatch.attributes['codebase'] = '/applet';
+          $(PartialMatch).attr('codebase', '/applet');
           PartialMatch.code = 'gherkin.editor.PartialMatch.class';
           PartialMatch.width = '0';
           PartialMatch.height = '0';
