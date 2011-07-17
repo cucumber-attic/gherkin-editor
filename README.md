@@ -14,7 +14,7 @@ Features that would be nice, but shouldn't go into this project
 
 # What it looks like so far
 
-![Syntax error](https://github.com/cucumber/gherkin-editor/raw/master/public/images/screenshots/autocomplete.png "The editor is suggesting steps")
+![Suggest](https://github.com/cucumber/gherkin-editor/raw/master/public/images/screenshots/autocomplete.png "The editor is suggesting steps")
 
 ![Syntax error](https://github.com/cucumber/gherkin-editor/raw/master/public/images/screenshots/syntax_error.png "The editor has detected a syntax error")
 
