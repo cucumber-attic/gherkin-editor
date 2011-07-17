@@ -5,6 +5,7 @@ define(["pilot/canon","ace/ace"], function(canon) {
   return function(editor, matches) {
     var self = this;
     var originalOnTextInput = editor.onTextInput;
+    var originalSoftTabs = editor.session.getUseSoftTabs();
     
     // Create the suggest list
     var element = document.createElement('ul');
@@ -70,6 +71,7 @@ define(["pilot/canon","ace/ace"], function(canon) {
       element.style.display = 'none';
       
       // Restore keyboard
+      editor.session.setUseSoftTabs(originalSoftTabs);
       canon.getCommand('golinedown').exec = golinedown;
       canon.getCommand('golineup').exec = golineup;
       editor.onTextInput = originalOnTextInput;
@@ -77,7 +79,7 @@ define(["pilot/canon","ace/ace"], function(canon) {
       self.active = false;
     }
     
-    // Shows the list and reassigns up/down keys
+    // Shows the list and reassigns keys
     this.activate = function(row, column) {
       if(this.active) return;
       this.active = true;
@@ -91,6 +93,7 @@ define(["pilot/canon","ace/ace"], function(canon) {
       element.style.display = 'block';
 
       // Take over the keyboard
+      editor.session.setUseSoftTabs(false);
       canon.getCommand('golinedown').exec = function(env, args, request) { focusNext(); };
       canon.getCommand('golineup').exec   = function(env, args, request) { focusPrev(); };
       canon.addCommand({
@@ -102,7 +105,7 @@ define(["pilot/canon","ace/ace"], function(canon) {
       });
 
       editor.onTextInput = function(text) {
-        if(text == '\n') {
+        if(text == '\n' || text == '\t') {
           replace();
         } else {
           originalOnTextInput.call(editor, text);
