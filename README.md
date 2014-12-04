@@ -39,7 +39,7 @@ This branch contains the changes on the other branches so that all our fixes can
     npm link
     git submodule update --init --recursive
     make
-    node server.js
+    NODE_PATH=./vendor/ace/build/src node server.js
 
 Now go to http://localhost:8000
 
