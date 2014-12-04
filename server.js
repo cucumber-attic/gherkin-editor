@@ -1,5 +1,3 @@
-require.paths.unshift(__dirname + '/vendor/ace/build/src');
-
 var express = require('express');
 var app = express.createServer();
 
